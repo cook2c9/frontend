@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components"
 //Wallpaper Icon
 import BCC_Wallpaper from "../../Background/BCC_Wallpaper.png"
@@ -103,10 +103,17 @@ const EMAIL = styled(Email)`
 `;
 
 //Header
+const HeaderDiv = styled.div`
+    display: inline-block;
+    @media (max-width: 500px){
+        width: 250px;
+    }
+`;
+
 const HamburgerDiv = styled.div`    
     width: 50px;
     height: 50px;
-    margin-left: 5%;    
+    margin-left: 5px;    
     display: none;
     @media (max-width: 900px){
         display: flex;
@@ -133,14 +140,17 @@ const HeaderImage = styled.div`
 const HeaderText = styled.h2`
     margin: 0;
     font-size: 72px;
+    width: 400px;
     @media (max-width: 500px){
         transform: translate(0, 100px);
+        width: 200px;
         font-size: 52px;
         text-align: right;
         padding-right: 35px;
     }
     @media (max-width: 900px){
         transform: translate(0, 90px);
+        width: 300px;
         font-size: 52px;
     }
 `;
@@ -169,9 +179,6 @@ const NavContainter = styled.div`
     color: white;
     height: 220px;
     transform: translate(0, -100%);
-    @media (max-width: 900px){
-        
-    }
 `;
 
 const NavItemContainter = styled.div`
@@ -179,7 +186,7 @@ const NavItemContainter = styled.div`
         text-align: left;
         margin-top: 150px;
         background-color:  #b3b4b5;
-    }    
+    }   
 `;
 
 const NavItem = styled.div`
@@ -216,6 +223,7 @@ const HoverNav = styled.a`
 const Navigation = () => {
 
     const [open, setOpen] = useState(false);
+    const [showNav, setNav] = useState(true);
 
     const NavButtonClicked = (e) =>{
         let ButtonName = (e.currentTarget.id);
@@ -244,19 +252,28 @@ const Navigation = () => {
             console.log("E M A I L");
         }
     }
-    
-    const Soda = () =>{
-        console.log("SODAAAA");
-    }
+
+    useEffect(() => {
+        function getScreenWidth(){
+            if(window.innerWidth > 900){
+                setNav(true)  
+            }else{
+                setNav(false)
+            }
+        }
+        window.addEventListener("resize", getScreenWidth)
+    })
 
     return(
         <><HeaderImage /> 
             <NavContainter>
                 <HamburgerDiv>
-                    <Hamburger onClick={() => {Soda()}}/>
+                        <Hamburger onClick={() => setNav(!showNav)}/>
                  </HamburgerDiv>
 
-                <HeaderText>Bella's Custom Crafts</HeaderText>
+                <HeaderDiv>
+                    <HeaderText>Bella's Custom Crafts</HeaderText>
+                </HeaderDiv>
 
                 <SocialDiv>
                     <SocialLink id="InstagramButton" onClick={SocialButtonClicked}><INSTAGRAM/></SocialLink>
@@ -264,15 +281,16 @@ const Navigation = () => {
                     <SocialLink id="TikTokButton" onClick={SocialButtonClicked}><TIKTOK/></SocialLink>
                     <SocialLink id="EmailButton" onClick={SocialButtonClicked}><EMAIL/></SocialLink>
                 </SocialDiv>
-
-                <NavItemContainter>
+                {showNav && <NavItemContainter>
                     <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav href="#"><HomeIcon />Home</HoverNav></NavItem>
                     <NavItem id="ProductsButton"><HoverNav href="#" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
                     <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav href="#"><SportIcon />Teams</HoverNav></NavItem>
                     <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav href="#"><CareIcon />Product Care</HoverNav></NavItem>
                     <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav href="#"><ContactIcon />Contact Me</HoverNav></NavItem>
                 </NavItemContainter>
-            </NavContainter></>   
+                }
+            </NavContainter>
+        </>   
     );
 }
 
