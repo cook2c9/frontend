@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components"
 //Wallpaper Icon
 import BCC_Wallpaper from "../../Background/BCC_Wallpaper.png"
+//Hamburger Menu Icon
+import { Menu } from "@styled-icons/entypo"
+
 //Nav Icons
 import { Home } from "@styled-icons/entypo"
 import { TShirt } from "@styled-icons/boxicons-solid"
@@ -14,7 +17,11 @@ import { Instagram } from "@styled-icons/bootstrap"
 import { Facebook } from "@styled-icons/entypo-social"
 import { Email } from "@styled-icons/material"
 
-import { Link } from 'react-router-dom'
+//Hamburger Icon
+const Hamburger = styled(Menu)`   
+    width: 50px;
+    height: 50px;
+`;
 
 //NAV ICONS
 const HomeIcon = styled(Home)`
@@ -96,8 +103,15 @@ const EMAIL = styled(Email)`
 `;
 
 //Header
-const HeaderDiv = styled.div`
-
+const HamburgerDiv = styled.div`    
+    width: 50px;
+    height: 50px;
+    margin-left: 5%;    
+    display: none;
+    @media (max-width: 900px){
+        display: flex;
+        transform: translate(0, 150px);
+    }
 `;
 
 const HeaderImage = styled.div`
@@ -105,27 +119,44 @@ const HeaderImage = styled.div`
     background-color: rgba(155, 163, 171, .5);
     background-blend-mode: multiply;
     height: 280px;
-    width: 100%;
-    margin-top: 0px;
+    max-width: 100%;
     filter: blur(8px);
     -webkit-filter: blur(8px);
+    @media (max-width: 500px){
+        height: 100px;
+    }
+    @media (max-width: 900px){
+        height: 100px;
+    }
 `;
 
-const Header = styled.h2`
+const HeaderText = styled.h2`
     margin: 0;
-    padding-bottom: 25px;
     font-size: 72px;
+    @media (max-width: 500px){
+        transform: translate(0, 100px);
+        font-size: 52px;
+        text-align: right;
+        padding-right: 35px;
+    }
+    @media (max-width: 900px){
+        transform: translate(0, 90px);
+        font-size: 52px;
+    }
 `;
 
 //Div for the Social media links at top right
 const SocialDiv = styled.div`
-    transform: translate(1650px, -115px);
-    width: 100px;
-    height: 100px;
+    margin-left: 80%;
+    display: flex;
+    transform: translate(0, -150%);
+    @media (max-width: 900px){
+        display: none;
+    } 
 `;
 
 const SocialLink = styled.div`
-    display: inline-block;
+    display: flex;
     width: 35px;
     height: 40px;
     margin: 3px;
@@ -133,29 +164,38 @@ const SocialLink = styled.div`
 
 //Nav Links and Containers
 const NavContainter = styled.div`
-    content: "";
     font-size: 35px;
     font-family: "SteelfishRegular";
     color: white;
     height: 220px;
     transform: translate(0, -100%);
+    @media (max-width: 900px){
+        
+    }
+`;
+
+const NavItemContainter = styled.div`
+    @media (max-width: 900px){
+        text-align: left;
+        margin-top: 150px;
+        background-color:  #b3b4b5;
+    }    
 `;
 
 const NavItem = styled.div`
     display: inline-block;
     margin-left: 5%;
-    margin-right: 5%;
     padding: 2px;
-    width: 175px;
-    transform: translate(0, -100%);
+    @media (max-width: 900px){
+        font-size: 24px; 
+        display: inline;
+    }
 `;
 
 //This puts the line under the line under th nav item when hovering
 const HoverNav = styled.a`
-
     text-decoration: none;
     color: white;
-
     &::after{
         content: "";
         display: block;
@@ -174,7 +214,9 @@ const HoverNav = styled.a`
 
 //Main Call
 const Navigation = () => {
-    
+
+    const [open, setOpen] = useState(false);
+
     const NavButtonClicked = (e) =>{
         let ButtonName = (e.currentTarget.id);
         if(ButtonName === "HomeButton"){
@@ -202,27 +244,35 @@ const Navigation = () => {
             console.log("E M A I L");
         }
     }
+    
+    const Soda = () =>{
+        console.log("SODAAAA");
+    }
 
     return(
-        <div>
-            <HeaderImage></HeaderImage> 
-            <NavContainter id="navContainer">
-                <HeaderDiv>
-                    <Header>Bella's Custom Crafts</Header>
-                    <SocialDiv>
-                        <SocialLink id="InstagramButton" onClick={SocialButtonClicked}><INSTAGRAM/></SocialLink>
-                        <SocialLink id="FacebookButton" onClick={SocialButtonClicked}><FACEBOOK/></SocialLink>
-                        <SocialLink id="TikTokButton" onClick={SocialButtonClicked}><TIKTOK/></SocialLink>
-                        <SocialLink id="EmailButton" onClick={SocialButtonClicked}><EMAIL/></SocialLink>
-                    </SocialDiv>
-                </HeaderDiv>
-                <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav href="#"><HomeIcon />Home</HoverNav></NavItem>
-                <NavItem id="ProductsButton" onClick={NavButtonClicked}><HoverNav href="#"><ShirtIcon />Products</HoverNav></NavItem>
-                <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav href="#"><SportIcon />Teams</HoverNav></NavItem>
-                <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav href="#"><CareIcon />Product Care</HoverNav></NavItem>
-                <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav href="#"><ContactIcon />Contact Me</HoverNav></NavItem>
-            </NavContainter>
-        </div>   
+        <><HeaderImage /> 
+            <NavContainter>
+                <HamburgerDiv>
+                    <Hamburger onClick={() => {Soda()}}/>
+                 </HamburgerDiv>
+
+                <HeaderText>Bella's Custom Crafts</HeaderText>
+
+                <SocialDiv>
+                    <SocialLink id="InstagramButton" onClick={SocialButtonClicked}><INSTAGRAM/></SocialLink>
+                    <SocialLink id="FacebookButton" onClick={SocialButtonClicked}><FACEBOOK/></SocialLink>
+                    <SocialLink id="TikTokButton" onClick={SocialButtonClicked}><TIKTOK/></SocialLink>
+                    <SocialLink id="EmailButton" onClick={SocialButtonClicked}><EMAIL/></SocialLink>
+                </SocialDiv>
+
+                <NavItemContainter>
+                    <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav href="#"><HomeIcon />Home</HoverNav></NavItem>
+                    <NavItem id="ProductsButton"><HoverNav href="#" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
+                    <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav href="#"><SportIcon />Teams</HoverNav></NavItem>
+                    <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav href="#"><CareIcon />Product Care</HoverNav></NavItem>
+                    <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav href="#"><ContactIcon />Contact Me</HoverNav></NavItem>
+                </NavItemContainter>
+            </NavContainter></>   
     );
 }
 
