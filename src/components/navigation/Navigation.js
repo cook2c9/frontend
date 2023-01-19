@@ -4,6 +4,7 @@ import styled from "styled-components"
 import BCC_Wallpaper from "../../Background/BCC_Wallpaper.png"
 //Hamburger Menu Icon
 import { Menu } from "@styled-icons/entypo"
+import { CaretDown } from '@styled-icons/boxicons-regular'
 
 //Nav Icons
 import { Home } from "@styled-icons/entypo"
@@ -19,8 +20,18 @@ import { Email } from "@styled-icons/material"
 
 //Hamburger Icon
 const Hamburger = styled(Menu)`   
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
+    margin-top: -30px;
+    @media(max-width: 900px){
+        margin-left: 10px;
+    }
+`;
+
+const Caret = styled(CaretDown)`   
+    width: 100px;
+    height: 100px;
+    margin-top: -30px;
 `;
 
 //NAV ICONS
@@ -103,12 +114,6 @@ const EMAIL = styled(Email)`
 `;
 
 //Header
-const HeaderDiv = styled.div`
-    display: inline-block;
-    @media (max-width: 500px){
-        width: 250px;
-    }
-`;
 
 const HamburgerDiv = styled.div`    
     width: 50px;
@@ -137,12 +142,19 @@ const HeaderImage = styled.div`
     }
 `;
 
+const HeaderDiv = styled.div`
+    display: inline-block;
+    @media (max-width: 500px){
+        width: 250px;
+    }
+`; 
+
 const HeaderText = styled.h2`
     margin: 0;
     font-size: 72px;
     width: 400px;
     @media (max-width: 500px){
-        transform: translate(0, 100px);
+        transform: translate(0, 90px);
         width: 200px;
         font-size: 52px;
         text-align: right;
@@ -174,6 +186,8 @@ const SocialLink = styled.div`
 
 //Nav Links and Containers
 const NavContainter = styled.div`
+    z-index: 1;  
+    position: relative;
     font-size: 35px;
     font-family: "SteelfishRegular";
     color: white;
@@ -182,11 +196,22 @@ const NavContainter = styled.div`
 `;
 
 const NavItemContainter = styled.div`
+    z-index: 10;
     @media (max-width: 900px){
+        border: 1px solid white;
+        width: 200px;
         text-align: left;
-        margin-top: 150px;
+        margin-top: 10%;
+        margin-left: 5%;
         background-color:  #b3b4b5;
+        position absolute;
     }   
+    @media(max-width: 500px){
+        margin-top: 20%;
+    }
+    @media(max-width: 300px){
+        margin-top: 30%;
+    }
 `;
 
 const NavItem = styled.div`
@@ -224,6 +249,7 @@ const Navigation = () => {
 
     const [open, setOpen] = useState(false);
     const [showNav, setNav] = useState(true);
+    const [activeHamburger, toggleHamburger] = useState(true)
 
     const NavButtonClicked = (e) =>{
         let ButtonName = (e.currentTarget.id);
@@ -253,10 +279,16 @@ const Navigation = () => {
         }
     }
 
+    const toggleActive = () => {
+        setNav(!showNav)
+        toggleHamburger(!activeHamburger)
+      };
+
     useEffect(() => {
         function getScreenWidth(){
             if(window.innerWidth > 900){
                 setNav(true)  
+                toggleHamburger(true)
             }else{
                 setNav(false)
             }
@@ -268,7 +300,8 @@ const Navigation = () => {
         <><HeaderImage /> 
             <NavContainter>
                 <HamburgerDiv>
-                        <Hamburger onClick={() => setNav(!showNav)}/>
+                        {activeHamburger && <Hamburger onClick={() => toggleActive()}/>}
+                        {!activeHamburger && <Caret onClick={() => toggleActive()}/>}
                  </HamburgerDiv>
 
                 <HeaderDiv>
@@ -281,14 +314,15 @@ const Navigation = () => {
                     <SocialLink id="TikTokButton" onClick={SocialButtonClicked}><TIKTOK/></SocialLink>
                     <SocialLink id="EmailButton" onClick={SocialButtonClicked}><EMAIL/></SocialLink>
                 </SocialDiv>
-                {showNav && <NavItemContainter>
+
+                {showNav && 
+                <NavItemContainter>
                     <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav href="#"><HomeIcon />Home</HoverNav></NavItem>
                     <NavItem id="ProductsButton"><HoverNav href="#" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
                     <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav href="#"><SportIcon />Teams</HoverNav></NavItem>
                     <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav href="#"><CareIcon />Product Care</HoverNav></NavItem>
                     <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav href="#"><ContactIcon />Contact Me</HoverNav></NavItem>
-                </NavItemContainter>
-                }
+                </NavItemContainter>}
             </NavContainter>
         </>   
     );
