@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components"
+import {Link} from 'react-router-dom'
 //Wallpaper Icon
 import BCC_Wallpaper from "../../Background/BCC_Wallpaper.png"
 //Hamburger Menu Icon
 import { Menu } from "@styled-icons/entypo"
 import { CaretDown } from '@styled-icons/boxicons-regular'
-
 //Nav Icons
 import { Home } from "@styled-icons/entypo"
 import { TShirt } from "@styled-icons/boxicons-solid"
@@ -225,7 +225,7 @@ const NavItem = styled.div`
 `;
 
 //This puts the line under the line under th nav item when hovering
-const HoverNav = styled.a`
+const HoverNav = styled(Link)`
     text-decoration: none;
     color: white;
     &::after{
@@ -316,13 +316,13 @@ const Navigation = () => {
                 </SocialDiv>
 
                 {showNav && 
-                <NavItemContainter>
-                    <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav href="#"><HomeIcon />Home</HoverNav></NavItem>
-                    <NavItem id="ProductsButton"><HoverNav href="#" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
-                    <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav href="#"><SportIcon />Teams</HoverNav></NavItem>
-                    <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav href="#"><CareIcon />Product Care</HoverNav></NavItem>
-                    <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav href="#"><ContactIcon />Contact Me</HoverNav></NavItem>
-                </NavItemContainter>}
+                    <NavItemContainter>
+                        <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav to="/"><HomeIcon />Home</HoverNav></NavItem>
+                        <NavItem id="ProductsButton"><HoverNav to="/products" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
+                        <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav to="/teams"><SportIcon />Teams</HoverNav></NavItem>
+                        <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav to="/productCare"><CareIcon />Product Care</HoverNav></NavItem>
+                        <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav to="/contact"><ContactIcon />Contact Me</HoverNav></NavItem>
+                    </NavItemContainter>}
             </NavContainter>
         </>   
     );

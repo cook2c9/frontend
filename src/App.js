@@ -1,20 +1,23 @@
 import './App.css';
-import Navigation from './components/navigation/Navigation';
-import Homepage from './components/homepage/Homepage'
-import styled from 'styled-components';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-//Styling is in App.css
-
-const AppContainer = styled.div`
-  text-align: center;
-`;
+import Contact from './components/contact/Contact';
+import Home from './components/home/Home';
+import Products from './components/products/Products';
+import Teams from './components/teams/Teams';
+import ProductCare from './components/productCare/ProductCare'
 
 function App() {
   return (
-    <AppContainer>
-      <Navigation />
-      <Homepage />
-    </AppContainer>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/Contact" element={<Contact />} />
+        <Route exact path="/Products" element={<Products />} />
+        <Route exact path="/Teams" element={<Teams />} />
+        <Route exact path="/ProductCare" element={<ProductCare />} />
+      </Routes>
+    </Router>
   );
 }
 
