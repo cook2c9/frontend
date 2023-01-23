@@ -11,19 +11,116 @@ import { Home } from "@styled-icons/entypo"
 import { TShirt } from "@styled-icons/boxicons-solid"
 import { Basketball } from "@styled-icons/fa-solid"
 import { DryCleaning } from "@styled-icons/material"
-import { ContactPage } from "@styled-icons/material"
+import { PersonFill } from '@styled-icons/bootstrap'
 //Social icons
 import { Tiktok } from "@styled-icons/boxicons-logos"
 import { Instagram } from "@styled-icons/bootstrap"
 import { Facebook } from "@styled-icons/entypo-social"
-import { Email } from "@styled-icons/material"
+import { Email } from '@styled-icons/material-rounded/Email'
+
+//Main Call
+const Navigation = () => {
+
+    const [open, setOpen] = useState(false);
+    const [showNav, setNav] = useState(true);
+    const [activeHamburger, toggleHamburger] = useState(true)
+
+    const NavButtonClicked = (e) =>{
+        let ButtonName = (e.currentTarget.id);
+        if(ButtonName === "HomeButton"){
+            console.log("H O M E")
+        }else if(ButtonName === "ProductsButton"){
+            console.log("P R O D U C T S")
+        }else if(ButtonName === "TeamsButton"){
+            console.log("T E A M S")
+        }else if(ButtonName === "CareButton"){
+            console.log("C A R E")
+        }else if(ButtonName === "ContactButton"){
+            console.log("C O N T A C T")
+        }
+    }
+
+    const SocialButtonClicked = (e) =>{
+        let ButtonName = (e.currentTarget.id);
+        if(ButtonName === "InstagramButton"){
+            window.location.replace("https://www.instagram.com/bellascustomcrafts/")
+        }else if(ButtonName === "FacebookButton"){
+            window.location.replace("https://www.facebook.com/bellascustomcrafts")
+        }else if(ButtonName === "TikTokButton"){
+            window.location.replace("https://www.tiktok.com/@bellascustomcrafts")
+        }else if(ButtonName === "EmailButton"){
+            console.log("E M A I L");
+        }
+    }
+
+    const toggleActive = () => {
+        setNav(!showNav)
+        toggleHamburger(!activeHamburger)
+      };
+
+    useEffect(() => {
+        function getScreenWidth(){
+            if(window.innerWidth > 1100){
+                setNav(true)  
+                toggleHamburger(true)
+            }else{
+                setNav(false)
+            }
+        }
+        window.addEventListener("resize", getScreenWidth)
+    })
+
+    return(
+        <AppContainer>
+            <HeaderImage />
+            <NavContainter> 
+                <HamburgerDiv>
+                        {activeHamburger && <Hamburger onClick={() => toggleActive()}/>}
+                        {!activeHamburger && <Caret onClick={() => toggleActive()}/>}
+                 </HamburgerDiv>
+
+                <HeaderDiv>
+                    <HeaderText>Bella's Custom Crafts</HeaderText>
+                </HeaderDiv>
+
+                <SocialDiv>
+                    <SocialItems>
+                        <SocialLink id="InstagramButton" onClick={SocialButtonClicked}><INSTAGRAM/></SocialLink>
+                        <SocialLink id="FacebookButton" onClick={SocialButtonClicked}><FACEBOOK/></SocialLink>
+                        <SocialLink id="TikTokButton" onClick={SocialButtonClicked}><TIKTOK/></SocialLink>
+                        <SocialLink id="EmailButton" onClick={SocialButtonClicked}><EMAIL/></SocialLink>
+                    </SocialItems>
+                </SocialDiv>
+
+                {showNav && 
+                    <NavItemContainter>
+                        <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav to="/"><HomeIcon />Home</HoverNav></NavItem>
+                        <NavItem id="ProductsButton"><HoverNav to="/products" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
+                        <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav to="/teams"><SportIcon />Teams</HoverNav></NavItem>
+                        <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav to="/productCare"><CareIcon />Product Care</HoverNav></NavItem>
+                        <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav to="/contact"><ContactIcon />Contact Me</HoverNav></NavItem>
+                        <NavItem id="LoginHiddenNav" onClick={NavButtonClicked}><HoverNav to="/login"><LoginIcon />Login</HoverNav></NavItem>
+                    </NavItemContainter>}
+            </NavContainter>
+        </AppContainer>   
+    );
+}
+
+const AppContainer = styled.div`    
+    text-align: center;
+    height: 300px;
+    height: 300px;
+    @media(max-width: 1100px){
+        height: 120px;
+    }
+`;
 
 //Hamburger Icon
 const Hamburger = styled(Menu)`   
     width: 100px;
     height: 100px;
     margin-top: -30px;
-    @media(max-width: 900px){
+    @media(max-width: 1100px){
         margin-left: 10px;
     }
 `;
@@ -68,13 +165,21 @@ const CareIcon = styled(DryCleaning)`
     margin-right: 10px;
 `;
 
-const ContactIcon = styled(ContactPage)`
+const ContactIcon = styled(Email)`
     color: white;
     width: 35px;
     height: 35px;
     margin-top: -10px;
     margin-right: 10px;
 `;
+
+const LoginIcon = styled(PersonFill)`
+    color: white;
+    width: 35px;
+    height: 35px;
+    margin-top: -10px;
+    margin-right: 10px;
+`
 
 //SOCIAL ICONS
 const INSTAGRAM = styled(Instagram)`
@@ -120,7 +225,7 @@ const HamburgerDiv = styled.div`
     height: 50px;
     margin-left: 5px;    
     display: none;
-    @media (max-width: 900px){
+    @media (max-width: 1100px){
         display: flex;
         transform: translate(0, 150px);
     }
@@ -137,7 +242,7 @@ const HeaderImage = styled.div`
     @media (max-width: 500px){
         height: 100px;
     }
-    @media (max-width: 900px){
+    @media (max-width: 1100px){
         height: 100px;
     }
 `;
@@ -160,7 +265,7 @@ const HeaderText = styled.h2`
         text-align: right;
         padding-right: 35px;
     }
-    @media (max-width: 900px){
+    @media (max-width: 1100px){
         transform: translate(0, 90px);
         width: 300px;
         font-size: 52px;
@@ -169,12 +274,16 @@ const HeaderText = styled.h2`
 
 //Div for the Social media links at top right
 const SocialDiv = styled.div`
-    margin-left: 80%;
+    margin-left: 75%;
     display: flex;
     transform: translate(0, -150%);
-    @media (max-width: 900px){
+    @media (max-width: 1100px){
         display: none;
     } 
+`;
+
+const SocialItems = styled.div`
+    display: flex;
 `;
 
 const SocialLink = styled.div`
@@ -197,14 +306,13 @@ const NavContainter = styled.div`
 
 const NavItemContainter = styled.div`
     z-index: 10;
-    @media (max-width: 900px){
+    @media (max-width: 1100px){
         border: 1px solid white;
         width: 200px;
         text-align: left;
         margin-top: 10%;
         margin-left: 5%;
         background-color:  #b3b4b5;
-        position absolute;
     }   
     @media(max-width: 500px){
         margin-top: 20%;
@@ -218,7 +326,7 @@ const NavItem = styled.div`
     display: inline-block;
     margin-left: 5%;
     padding: 2px;
-    @media (max-width: 900px){
+    @media (max-width: 1100px){
         font-size: 24px; 
         display: inline;
     }
@@ -243,89 +351,5 @@ const HoverNav = styled(Link)`
         transition: all 0.4s;
     }
 `;
-
-//Main Call
-const Navigation = () => {
-
-    const [open, setOpen] = useState(false);
-    const [showNav, setNav] = useState(true);
-    const [activeHamburger, toggleHamburger] = useState(true)
-
-    const NavButtonClicked = (e) =>{
-        let ButtonName = (e.currentTarget.id);
-        if(ButtonName === "HomeButton"){
-            console.log("H O M E")
-        }else if(ButtonName === "ProductsButton"){
-            console.log("P R O D U C T S")
-        }else if(ButtonName === "TeamsButton"){
-            console.log("T E A M S")
-        }else if(ButtonName === "CareButton"){
-            console.log("C A R E")
-        }else if(ButtonName === "ContactButton"){
-            console.log("C O N T A C T")
-        }
-    }
-
-    const SocialButtonClicked = (e) =>{
-        let ButtonName = (e.currentTarget.id);
-        if(ButtonName === "InstagramButton"){
-            window.location.replace("https://www.instagram.com/bellascustomcrafts/")
-        }else if(ButtonName === "FacebookButton"){
-            window.location.replace("https://www.facebook.com/bellascustomcrafts")
-        }else if(ButtonName === "TikTokButton"){
-            window.location.replace("https://www.tiktok.com/@bellascustomcrafts")
-        }else if(ButtonName === "EmailButton"){
-            console.log("E M A I L");
-        }
-    }
-
-    const toggleActive = () => {
-        setNav(!showNav)
-        toggleHamburger(!activeHamburger)
-      };
-
-    useEffect(() => {
-        function getScreenWidth(){
-            if(window.innerWidth > 900){
-                setNav(true)  
-                toggleHamburger(true)
-            }else{
-                setNav(false)
-            }
-        }
-        window.addEventListener("resize", getScreenWidth)
-    })
-
-    return(
-        <><HeaderImage /> 
-            <NavContainter>
-                <HamburgerDiv>
-                        {activeHamburger && <Hamburger onClick={() => toggleActive()}/>}
-                        {!activeHamburger && <Caret onClick={() => toggleActive()}/>}
-                 </HamburgerDiv>
-
-                <HeaderDiv>
-                    <HeaderText>Bella's Custom Crafts</HeaderText>
-                </HeaderDiv>
-
-                <SocialDiv>
-                    <SocialLink id="InstagramButton" onClick={SocialButtonClicked}><INSTAGRAM/></SocialLink>
-                    <SocialLink id="FacebookButton" onClick={SocialButtonClicked}><FACEBOOK/></SocialLink>
-                    <SocialLink id="TikTokButton" onClick={SocialButtonClicked}><TIKTOK/></SocialLink>
-                    <SocialLink id="EmailButton" onClick={SocialButtonClicked}><EMAIL/></SocialLink>
-                </SocialDiv>
-
-                {showNav && 
-                    <NavItemContainter>
-                        <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav to="/"><HomeIcon />Home</HoverNav></NavItem>
-                        <NavItem id="ProductsButton"><HoverNav to="/products" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
-                        <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav to="/teams"><SportIcon />Teams</HoverNav></NavItem>
-                        <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav to="/productCare"><CareIcon />Product Care</HoverNav></NavItem>
-                        <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav to="/contact"><ContactIcon />Contact Me</HoverNav></NavItem>
-                    </NavItemContainter>}
-            </NavContainter>
-        </>   
-    );
-}
 
 export default Navigation;

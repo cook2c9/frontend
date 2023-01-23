@@ -6,6 +6,7 @@ import Home from './components/home/Home';
 import Products from './components/products/Products';
 import Teams from './components/teams/Teams';
 import ProductCare from './components/productCare/ProductCare'
+import Login from './components/login/Login'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/Products" element={<Products />} />
         <Route exact path="/Teams" element={<Teams />} />
         <Route exact path="/ProductCare" element={<ProductCare />} />
+        <Route exact path="/Login" element={<Login />} />
       </Routes>
     </Router>
   );

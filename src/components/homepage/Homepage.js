@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import HomepageItem from "./HomepageItem";
 
-
 import { TShirt } from "@styled-icons/boxicons-solid"
 import { DrinkToGo } from "@styled-icons/fluentui-system-filled/DrinkToGo"
 import { Dog } from '@styled-icons/fa-solid/Dog' 
@@ -158,7 +157,6 @@ const ShirtIcon = styled(TShirt)`
 `;
 
 const HomepageContainer = styled.div`   
-    transform: translate(0, -30%);
     width: 80%;
     height: 700px;
     justify-content: center;
