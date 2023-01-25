@@ -7,9 +7,14 @@ const Login = () =>{
     
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPass, setConfrimPassword] = useState("")
 
-    const SubmitClicked = (email, pass) =>{
-        alert("Email: " + email + " | Password: " + pass) 
+    const SubmitClicked = () =>{
+        if(password === confirmPass){
+            alert("Success")
+        }else{
+            alert("Passwords do not match")
+        }
     };
 
     const onChangeEmail = event => {
@@ -20,10 +25,13 @@ const Login = () =>{
         setPassword(event.target.value);
     };
 
+    const onChangeConfirmPass = event => {
+        setConfrimPassword(event.target.value);
+    }
+
     return(
         <AppContainer>
             <Navigation />
-            
             <LoginContainer >
                 <LoginHeader>User Login</LoginHeader>
 
@@ -34,10 +42,17 @@ const Login = () =>{
 
                 <PassContainer>
                     <PassHeader>Password</PassHeader>
-                    <PassInput placeholder="Enter your password" type="text" defaultValue={password} onChange={onChangePass} />
+                    <PassInput placeholder="Enter your password" type="password" defaultValue={password} onChange={onChangePass} />
                 </PassContainer>
+                
+                <ConfirmContainer>
+                    <PassHeader>Confirm Password</PassHeader>
+                    <PassInput placeholder="Confirm your password" type="password" defaultValue={confirmPass} onChange={onChangeConfirmPass} />
+                </ConfirmContainer>
 
-                <SignInButton onClick={() => SubmitClicked(email, password)}>Sign In</SignInButton>
+                <ButtonContainer>
+                    <SignInButton onClick={() => SubmitClicked(email, password)}>Sign In</SignInButton>
+                </ButtonContainer>
 
                 <BottomContainer>
                     <NeedAccoutnButton>Need an Account?</NeedAccoutnButton>
@@ -45,19 +60,22 @@ const Login = () =>{
                 </BottomContainer>
 
             </LoginContainer>
-
         </AppContainer>
     );
 }
 
-const AppContainer = styled.div`
+const AppContainer = styled.div`  
+    height: 100%;    
     text-align: center;
     font-family: "SteelfishRegular";
+    color: white;
 `;
 
 const LoginContainer = styled.form`
-    border: 1px solid red;
-    width: 800px;  
+    border: 1px solid white;
+    border-radius: 20px;
+    background-color: #8d8e8f;
+    width: 600px;  
     margin: auto;
     height: 400px;
     @media(max-width: 1100px){  
@@ -75,13 +93,14 @@ const LoginHeader = styled.h2`
 `;
 
 //Username Section
-const UserContainer = styled.label`
-  
+const UserContainer = styled.form`
+    width: 300px;
+    margin: auto;
+    text-align: left;
 `;
 
 const UserHeader = styled.h4`
     font-size: 32px;
-    text-align: left;
     padding: 0;
     margin: 0;
 `;
@@ -89,11 +108,28 @@ const UserHeader = styled.h4`
 const UserInput = styled.input`
     font-family: "SteelfishRegular";    
     font-size: 32px;
+    width: 300px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    background-color: #c9c9c9;
+    padding: 4px;
+    &:focus{
+        outline: none !important;
+    }
 `;
 
 //Password Section
-const PassContainer = styled.label`
-    margin-top: 10px;
+const PassContainer = styled.form`
+    width: 300px;
+    margin: auto;
+    text-align: left;
+`;
+
+const ConfirmContainer = styled.form`
+    width: 300px;
+    margin: auto;
+    text-align: left;
 `;
 
 const PassHeader = styled.h4`
@@ -105,6 +141,20 @@ const PassHeader = styled.h4`
 const PassInput = styled.input`
     font-family: "SteelfishRegular";    
     font-size: 32px;
+    width: 300px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    background-color: #c9c9c9;
+    padding: 4px;
+    &:focus{
+        outline: none !important;
+    }
+`;
+
+//Sign in Button
+const ButtonContainer = styled.form`
+    border: 1px solid yellow;
 `;
 
 const SignInButton = styled.button`
@@ -113,7 +163,7 @@ const SignInButton = styled.button`
 
 //Bottom Buttons
 const BottomContainer = styled.div`
-  
+    border: 1px solid blue;
 `;
 
 const NeedAccoutnButton = styled.button`
