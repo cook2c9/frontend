@@ -1,13 +1,21 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Navigation from '../navigation/Navigation';
 
-const Login = () =>{
+const Register = () =>{
     
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPass, setConfrimPassword] = useState("")
+
+    const SubmitClicked = () =>{
+        if(password === confirmPass){
+            alert("Success")
+        }else{
+            alert("Passwords do not match")
+        }
+    };
 
     const onChangeEmail = event => {
         setEmail(event.target.value);
@@ -17,11 +25,15 @@ const Login = () =>{
         setPassword(event.target.value);
     };
 
+    const onChangeConfirmPass = event => {
+        setConfrimPassword(event.target.value);
+    }
+
     return(
         <AppContainer>
             <Navigation />
-            <LoginContainer >
-                <LoginHeader>User Login</LoginHeader>
+            <RegisterContainer >
+                <RegisterHeader>Create an Account</RegisterHeader>
 
                 <UserContainer>
                     <UserHeader>Email:</UserHeader>   
@@ -32,19 +44,17 @@ const Login = () =>{
                     <PassHeader>Password</PassHeader>
                     <PassInput placeholder="Enter your password" type="password" defaultValue={password} onChange={onChangePass} />
                 </PassContainer>
+                
+                <ConfirmContainer>
+                    <PassHeader>Confirm Password</PassHeader>
+                    <PassInput placeholder="Confirm your password" type="password" defaultValue={confirmPass} onChange={onChangeConfirmPass} />
+                </ConfirmContainer>
 
                 <ButtonContainer>
-                    <SignInButton>Sign In</SignInButton>
+                    <CreateButton onClick={() => SubmitClicked(email, password)}>Sign In</CreateButton>
                 </ButtonContainer>
 
-                <BottomContainer>
-                    <RegisterForm to="/register">
-                        <NeedAccoutnButton onClick={()=>console.log('Button Clicked')}>Need an Account?</NeedAccoutnButton>
-                    </RegisterForm>
-                    <ForgotPasswordButton>Forgot your Password?</ForgotPasswordButton>
-                </BottomContainer>
-
-            </LoginContainer>
+            </RegisterContainer>
         </AppContainer>
     );
 }
@@ -56,12 +66,12 @@ const AppContainer = styled.div`
     color: white;
 `;
 
-const LoginContainer = styled.form`
+const RegisterContainer = styled.form`
     padding-top: 35px;
     border: 1px solid white;
     border-radius: 20px;
     background-color: #8d8e8f;
-    height: 450px;
+    height: 500px;
     width: 750px;  
     margin: auto;
     @media(max-width: 1100px){  
@@ -72,7 +82,7 @@ const LoginContainer = styled.form`
     };
 `;
 
-const LoginHeader = styled.h2`
+const RegisterHeader = styled.h2`
     font-size: 52px;
     margin: 0;
     padding: 0;
@@ -119,6 +129,13 @@ const PassContainer = styled.form`
     margin-top: 5px;
 `;
 
+const ConfirmContainer = styled.form`
+    width: 300px;
+    margin: auto;
+    text-align: left;
+    margin-top: 5px;
+`;
+
 const PassHeader = styled.h4`
     font-size: 32px;
     padding: 0;
@@ -152,7 +169,7 @@ const ButtonContainer = styled.form`
     padding: 20px;
 `;
 
-const SignInButton = styled.button`
+const CreateButton = styled.button`
     width: 200px;
     height: 40px;
     border: none;
@@ -167,74 +184,4 @@ const SignInButton = styled.button`
     }
 `;
 
-//Bottom Buttons
-const BottomContainer = styled.div`
-    margin: auto;
-    margin-top: 10px;
-`;
-
-const RegisterForm = styled(Link)`
-
-`
-
-const NeedAccoutnButton = styled.button`
-    font-family: "SteelfishRegular";   
-    font-size: 24px; 
-    border: none;
-    background: none;
-    cursor: pointer;     
-    margin-right: 50px;
-    color: white;
-    @media(max-width: 600px){
-        margin-right: 25px;
-    }
-    &:hover{
-        color: #c9c9c9;
-    }
-    &::after{
-        content: "";
-        display: block;
-        margin-top: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        height: 2px;
-        width: 0px;
-        background-color: white;
-    };
-    &:hover::after{
-        width: 100%;
-        transition: all 0.4s;
-    }
-`;
-
-const ForgotPasswordButton = styled.button`
-    font-family: "SteelfishRegular";
-    font-size: 24px; 
-    border: none;
-    background: none;
-    cursor: pointer;     
-    margin-left: 50px;
-    color: white;
-    @media(max-width: 600px){
-        margin-left: 25px;
-    }
-    &:hover{
-        color: #c9c9c9;
-    }
-    &::after{
-        content: "";
-        display: block;
-        margin-top: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        height: 2px;
-        width: 0px;
-        background-color: white;
-    };
-    &:hover::after{
-        width: 100%;
-        transition: all 0.4s;
-    }
-`;
-
-export default Login;
+export default Register;

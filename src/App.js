@@ -7,6 +7,7 @@ import Products from './components/products/Products';
 import Teams from './components/teams/Teams';
 import ProductCare from './components/productCare/ProductCare'
 import Login from './components/login/Login'
+import Register from './components/register/Register';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/Teams" element={<Teams />} />
         <Route exact path="/ProductCare" element={<ProductCare />} />
         <Route exact path="/Login" element={<Login />} />
+        <Route exact path="/Register" element={<Register />} />
       </Routes>
     </Router>
   );

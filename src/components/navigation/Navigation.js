@@ -23,22 +23,7 @@ const Navigation = () => {
 
     const [open, setOpen] = useState(false);
     const [showNav, setNav] = useState(true);
-    const [activeHamburger, toggleHamburger] = useState(true)
-
-    const NavButtonClicked = (e) =>{
-        let ButtonName = (e.currentTarget.id);
-        if(ButtonName === "HomeButton"){
-            console.log("H O M E")
-        }else if(ButtonName === "ProductsButton"){
-            console.log("P R O D U C T S")
-        }else if(ButtonName === "TeamsButton"){
-            console.log("T E A M S")
-        }else if(ButtonName === "CareButton"){
-            console.log("C A R E")
-        }else if(ButtonName === "ContactButton"){
-            console.log("C O N T A C T")
-        }
-    }
+    const [activeHamburger, toggleHamburger] = useState(false)
 
     const SocialButtonClicked = (e) =>{
         let ButtonName = (e.currentTarget.id);
@@ -56,7 +41,12 @@ const Navigation = () => {
     const toggleActive = () => {
         setNav(!showNav)
         toggleHamburger(!activeHamburger)
-      };
+    };
+
+    const hideNav = () =>{
+        setNav(false)
+        toggleHamburger(false)
+    }
 
     useEffect(() => {
         function getScreenWidth(){
@@ -65,8 +55,10 @@ const Navigation = () => {
                 toggleHamburger(true)
             }else{
                 setNav(false)
-            }
+                toggleHamburger(false)
+            };
         }
+
         window.addEventListener("resize", getScreenWidth)
     })
 
@@ -93,13 +85,13 @@ const Navigation = () => {
                 </SocialDiv>
 
                 {showNav && 
-                    <NavItemContainter>
-                        <NavItem id="HomeButton" onClick={NavButtonClicked}><HoverNav to="/"><HomeIcon />Home</HoverNav></NavItem>
-                        <NavItem id="ProductsButton"><HoverNav to="/products" onClick={() => setOpen(!open)}><ShirtIcon />Products</HoverNav></NavItem>
-                        <NavItem id="TeamsButton" onClick={NavButtonClicked}><HoverNav to="/teams"><SportIcon />Teams</HoverNav></NavItem>
-                        <NavItem id="CareButton" onClick={NavButtonClicked}><HoverNav to="/productCare"><CareIcon />Product Care</HoverNav></NavItem>
-                        <NavItem id="ContactButton" onClick={NavButtonClicked}><HoverNav to="/contact"><ContactIcon />Contact Me</HoverNav></NavItem>
-                        <NavItem id="LoginHiddenNav" onClick={NavButtonClicked}><HoverNav to="/login"><LoginIcon />Login</HoverNav></NavItem>
+                    <NavItemContainter onClick={() => hideNav()}>
+                        <NavItem><HoverNav to="/"><HomeIcon />Home</HoverNav></NavItem>
+                        <NavItem><HoverNav to="/products"><ShirtIcon />Products</HoverNav></NavItem>
+                        <NavItem><HoverNav to="/teams"><SportIcon />Teams</HoverNav></NavItem>
+                        <NavItem><HoverNav to="/productCare"><CareIcon />Product Care</HoverNav></NavItem>
+                        <NavItem><HoverNav to="/contact"><ContactIcon />Contact Me</HoverNav></NavItem>
+                        <NavItem><HoverNav to="/login"><LoginIcon />Login</HoverNav></NavItem>
                     </NavItemContainter>}
             </NavContainter>
         </AppContainer>   
