@@ -20,10 +20,8 @@ import { Email } from '@styled-icons/material-rounded/Email'
 
 //Main Call
 const Navigation = () => {
-
-    const [open, setOpen] = useState(false);
     const [showNav, setNav] = useState(true);
-    const [activeHamburger, toggleHamburger] = useState(false)
+    const [activeHamburger, toggleHamburger] = useState(true)
 
     const SocialButtonClicked = (e) =>{
         let ButtonName = (e.currentTarget.id);
@@ -43,11 +41,6 @@ const Navigation = () => {
         toggleHamburger(!activeHamburger)
     };
 
-    const hideNav = () =>{
-        setNav(false)
-        toggleHamburger(false)
-    }
-
     useEffect(() => {
         function getScreenWidth(){
             if(window.innerWidth > 1100){
@@ -55,10 +48,9 @@ const Navigation = () => {
                 toggleHamburger(true)
             }else{
                 setNav(false)
-                toggleHamburger(false)
+                toggleHamburger(true)
             };
         }
-
         window.addEventListener("resize", getScreenWidth)
     })
 
@@ -67,8 +59,8 @@ const Navigation = () => {
             <HeaderImage />
             <NavContainter> 
                 <HamburgerDiv>
-                        {activeHamburger && <Hamburger onClick={() => toggleActive()}/>}
-                        {!activeHamburger && <Caret onClick={() => toggleActive()}/>}
+                    {activeHamburger && <Hamburger onClick={() => toggleActive()}/>}
+                    {!activeHamburger && <Caret onClick={() => toggleActive()}/>}
                  </HamburgerDiv>
 
                 <HeaderDiv>
@@ -84,14 +76,14 @@ const Navigation = () => {
                     </SocialItems>
                 </SocialDiv>
 
-                {showNav && 
-                    <NavItemContainter onClick={() => hideNav()}>
+                {showNav &&
+                    <NavItemContainter onClick={() => toggleActive()}>
                         <NavItem><HoverNav to="/"><HomeIcon />Home</HoverNav></NavItem>
                         <NavItem><HoverNav to="/products"><ShirtIcon />Products</HoverNav></NavItem>
                         <NavItem><HoverNav to="/teams"><SportIcon />Teams</HoverNav></NavItem>
                         <NavItem><HoverNav to="/productCare"><CareIcon />Product Care</HoverNav></NavItem>
                         <NavItem><HoverNav to="/contact"><ContactIcon />Contact Me</HoverNav></NavItem>
-                        <NavItem><HoverNav to="/login"><LoginIcon />Login</HoverNav></NavItem>
+                        <NavItem><HoverNav to="/login"><LoginIcon />Account</HoverNav></NavItem>
                     </NavItemContainter>}
             </NavContainter>
         </AppContainer>   

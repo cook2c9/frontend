@@ -8,20 +8,22 @@ import Teams from './components/teams/Teams';
 import ProductCare from './components/productCare/ProductCare'
 import Login from './components/login/Login'
 import Register from './components/register/Register';
+import Account from './components/account/Account';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Home />}></Route>
-        <Route exact path="/Contact" element={<Contact />} />
-        <Route exact path="/Products" element={<Products />} />
-        <Route exact path="/Teams" element={<Teams />} />
-        <Route exact path="/ProductCare" element={<ProductCare />} />
-        <Route exact path="/Login" element={<Login />} />
-        <Route exact path="/Register" element={<Register />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/Contact" element={<Contact />} />
+          <Route exact path="/Products" element={<Products />} />
+          <Route exact path="/Teams" element={<Teams />} />
+          <Route exact path="/ProductCare" element={<ProductCare />} />
+          <Route exact path="/Login" element={<Login />} />
+          <Route exact path="/Account" element={<Account />}/>
+          <Route exact path="/Register" element={<Register />} />
+        </Routes>
+      </Router>
   );
 }
 

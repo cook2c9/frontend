@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
+import {CreateNewUser} from "../../firebase/fire"
+
 import Navigation from '../navigation/Navigation';
 
 const Register = () =>{
     
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPass, setConfrimPassword] = useState("")
+    const [registerEmail, setEmail] = useState("")
+    const [registerPassword, setPassword] = useState("")
+    const [registerConfirmPass, setConfrimPassword] = useState("")
 
-    const SubmitClicked = () =>{
-        if(password === confirmPass){
-            alert("Success")
+    const HandleCreateNewUser = () =>{
+        if(registerPassword === registerConfirmPass){
+            CreateNewUser(registerEmail, registerPassword);
         }else{
-            alert("Passwords do not match")
+            alert("Passwords do not match!")
         }
-    };
+    }
 
     const onChangeEmail = event => {
         setEmail(event.target.value);
@@ -37,21 +39,21 @@ const Register = () =>{
 
                 <UserContainer>
                     <UserHeader>Email:</UserHeader>   
-                    <UserInput placeholder="Enter your email address" type="input" defaultValue={email} onChange={onChangeEmail} />
+                    <UserInput placeholder="Enter your email address" type="input" defaultValue={registerEmail} onChange={onChangeEmail} />
                 </UserContainer>
 
                 <PassContainer>
                     <PassHeader>Password</PassHeader>
-                    <PassInput placeholder="Enter your password" type="password" defaultValue={password} onChange={onChangePass} />
+                    <PassInput placeholder="Enter your password" type="password" defaultValue={registerPassword} onChange={onChangePass} />
                 </PassContainer>
                 
                 <ConfirmContainer>
                     <PassHeader>Confirm Password</PassHeader>
-                    <PassInput placeholder="Confirm your password" type="password" defaultValue={confirmPass} onChange={onChangeConfirmPass} />
+                    <PassInput placeholder="Confirm your password" type="password" defaultValue={registerConfirmPass} onChange={onChangeConfirmPass} />
                 </ConfirmContainer>
 
                 <ButtonContainer>
-                    <CreateButton onClick={() => SubmitClicked(email, password)}>Sign In</CreateButton>
+                    <CreateButton onClick={HandleCreateNewUser}>Sign In</CreateButton>
                 </ButtonContainer>
 
             </RegisterContainer>
@@ -66,7 +68,7 @@ const AppContainer = styled.div`
     color: white;
 `;
 
-const RegisterContainer = styled.form`
+const RegisterContainer = styled.div`
     padding-top: 35px;
     border: 1px solid white;
     border-radius: 20px;
@@ -89,7 +91,7 @@ const RegisterHeader = styled.h2`
 `;
 
 //Username Section
-const UserContainer = styled.form`
+const UserContainer = styled.div`
     width: 300px;
     margin: auto;
     text-align: left;
@@ -122,14 +124,14 @@ const UserInput = styled.input`
 `;
 
 //Password Section
-const PassContainer = styled.form`
+const PassContainer = styled.div`
     width: 300px;
     margin: auto;
     text-align: left;
     margin-top: 5px;
 `;
 
-const ConfirmContainer = styled.form`
+const ConfirmContainer = styled.div`
     width: 300px;
     margin: auto;
     text-align: left;
@@ -163,7 +165,7 @@ const PassInput = styled.input`
 `;
 
 //Sign in Button
-const ButtonContainer = styled.form`
+const ButtonContainer = styled.div`
     width: 300px;
     margin: auto;
     padding: 20px;

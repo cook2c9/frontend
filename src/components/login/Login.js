@@ -4,10 +4,12 @@ import styled from 'styled-components';
 
 import Navigation from '../navigation/Navigation';
 
+import { LoginUser } from '../../firebase/fire';
+
 const Login = () =>{
     
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [loginEmail, setEmail] = useState("")
+    const [loginPassword, setPassword] = useState("")
 
     const onChangeEmail = event => {
         setEmail(event.target.value);
@@ -21,25 +23,25 @@ const Login = () =>{
         <AppContainer>
             <Navigation />
             <LoginContainer >
-                <LoginHeader>User Login</LoginHeader>
+                <LoginHeader>User Login: </LoginHeader>
 
                 <UserContainer>
                     <UserHeader>Email:</UserHeader>   
-                    <UserInput placeholder="Enter your email address" type="input" defaultValue={email} onChange={onChangeEmail} />
+                    <UserInput placeholder="Enter your email address" type="input" defaultValue={loginEmail} onChange={onChangeEmail} />
                 </UserContainer>
 
                 <PassContainer>
                     <PassHeader>Password</PassHeader>
-                    <PassInput placeholder="Enter your password" type="password" defaultValue={password} onChange={onChangePass} />
+                    <PassInput placeholder="Enter your password" type="password" defaultValue={loginPassword} onChange={onChangePass} />
                 </PassContainer>
 
                 <ButtonContainer>
-                    <SignInButton>Sign In</SignInButton>
+                    <SignInButton onClick={()=>{ LoginUser(loginEmail, loginPassword) } }>Sign In</SignInButton>
                 </ButtonContainer>
 
                 <BottomContainer>
                     <RegisterForm to="/register">
-                        <NeedAccoutnButton onClick={()=>console.log('Button Clicked')}>Need an Account?</NeedAccoutnButton>
+                        <NeedAccoutnButton onClick={()=> console.log('Button Clicked')}>Need an Account?</NeedAccoutnButton>
                     </RegisterForm>
                     <ForgotPasswordButton>Forgot your Password?</ForgotPasswordButton>
                 </BottomContainer>
@@ -56,7 +58,7 @@ const AppContainer = styled.div`
     color: white;
 `;
 
-const LoginContainer = styled.form`
+const LoginContainer = styled.div`
     padding-top: 35px;
     border: 1px solid white;
     border-radius: 20px;
@@ -79,7 +81,7 @@ const LoginHeader = styled.h2`
 `;
 
 //Username Section
-const UserContainer = styled.form`
+const UserContainer = styled.div`
     width: 300px;
     margin: auto;
     text-align: left;
@@ -112,7 +114,7 @@ const UserInput = styled.input`
 `;
 
 //Password Section
-const PassContainer = styled.form`
+const PassContainer = styled.div`
     width: 300px;
     margin: auto;
     text-align: left;
@@ -146,7 +148,7 @@ const PassInput = styled.input`
 `;
 
 //Sign in Button
-const ButtonContainer = styled.form`
+const ButtonContainer = styled.div`
     width: 300px;
     margin: auto;
     padding: 20px;
