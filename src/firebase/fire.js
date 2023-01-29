@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, updateProfile } from "firebase/auth";
 import { signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,6 +24,10 @@ export const CreateNewUser = async (email, password) =>{
   createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     const user = userCredential.user;
+    user.photoURL = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
+    window.localStorage.setItem("CURRENT_USER", JSON.stringify(user.uid))
+    window.localStorage.setItem("CURRENT_USER_EMAIL", JSON.stringify(user.email))
+    window.localStorage.setItem("CURRENT_USER_PROFILE_PHOTO", JSON.stringify(user.photoURL))
     alert("Resistered as: " + user.email)
   })
   .catch((error) => {
@@ -37,6 +43,9 @@ export const LoginUser = async (email, password) =>{
   .then((userCredential) => { 
     const user = userCredential.user;
     alert("Signed in as: " + user.email)
+    window.localStorage.setItem("CURRENT_USER", JSON.stringify(user.uid))
+    window.localStorage.setItem("CURRENT_USER_EMAIL", JSON.stringify(user.email))
+    window.localStorage.setItem("CURRENT_USER_PROFILE_PHOTO", JSON.stringify(user.photoURL))
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -47,6 +56,9 @@ export const LoginUser = async (email, password) =>{
 
 export const LogOutUser = async () =>{
   await signOut(auth)
+  window.localStorage.removeItem("CURRENT_USER")
+  window.localStorage.removeItem("CURRENT_USER_EMAIL")
+  window.localStorage.removeItem("CURRENT_USER_PROFILE_PHOTO")
   alert("Signed out")
 }
 
@@ -55,13 +67,37 @@ export const useAuth = () =>{
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const email = user.email;
-      console.log("CALL FROM AUTH - Signed in as: " + email)
+      window.localStorage.setItem("CURRENT_USER", JSON.stringify(user.uid))
+      window.localStorage.setItem("CURRENT_USER_EMAIL", JSON.stringify(user.email))
+      window.localStorage.setItem("CURRENT_USER_PHOTO", JSON.stringify(user.photoURL))
+      console.log("CALL FROM AUTH - Signed in as: " + user.email)
     } else {
+      window.localStorage.removeItem("CURRENT_USER")
+      window.localStorage.removeItem("CURRENT_USER_EMAIL")
+      window.localStorage.removeItem("CURRENT_USER_PROFILE_PHOTO")
       console.log("User is signed out")
     }
   });
 }
 
+export const UploadPhoto = async (file, currentUser, setLoading) =>{
+  //Create a location that the file will exist in
+  const fileRef = ref(storage, currentUser + '.png')
+
+  //Loading... Uploading new location
+  setLoading(true)
+  await uploadBytes(fileRef, file);
+  
+  //Get the new photo to update on the user's profile
+  const profilePhotoURL = await getDownloadURL(fileRef);
+  updateProfile(currentUser, JSON.stringify({photoURL: profilePhotoURL}))
+  
+  //Completed
+  console.log(currentUser.photoURL)
+  setLoading(false)
+  alert("File uploaded")
+}
+
 const app = initializeApp(firebaseConfig);
+const storage = getStorage(app)
 const auth = getAuth(app);
