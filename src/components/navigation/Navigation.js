@@ -77,7 +77,7 @@ const Navigation = () => {
                 </SocialDiv>
 
                 {showNav &&
-                    <NavItemContainter onClick={() => toggleActive()}>
+                    <NavItemContainter>
                         <NavItem><HoverNav to="/"><HomeIcon />Home</HoverNav></NavItem>
                         <NavItem><HoverNav to="/products"><ShirtIcon />Products</HoverNav></NavItem>
                         <NavItem><HoverNav to="/teams"><SportIcon />Teams</HoverNav></NavItem>

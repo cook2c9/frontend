@@ -34,18 +34,19 @@ const Contact = () =>{
                         <ContactImage src={icon} />
                     </ImageContainer>
 
-                    <ContactMethodContainer>
-                        <EmailContainer>Bellascustomcrafts@gmail.com</EmailContainer>
-                    </ContactMethodContainer>
+                    <HeadContainer>
+                        <ContactMethodContainer>
+                            <EmailContainer>Bellascustomcrafts@gmail.com</EmailContainer>
+                        </ContactMethodContainer>
 
-                    <SocialDiv>
+                        
                         <SocialItems>
                             <SocialLink id="InstagramButton" onClick={SocialButtonClicked}><INSTAGRAM/></SocialLink>
                             <SocialLink id="FacebookButton" onClick={SocialButtonClicked}><FACEBOOK/></SocialLink>
                             <SocialLink id="TikTokButton" onClick={SocialButtonClicked}><TIKTOK/></SocialLink>
                             <SocialLink id="EmailButton" onClick={SocialButtonClicked}><EMAIL/></SocialLink>
                         </SocialItems>
-                    </SocialDiv>
+                    </HeadContainer>
 
                 </AboutContainer>
 
@@ -60,20 +61,29 @@ const Contact = () =>{
     );
 }
 
-//App
+//App / Containers
 const AppContainer = styled.div`
     font-family: "SteelfishRegular";
-
 `;
 
 const ContactContainer = styled.div`
     display: flex;
+    @media(max-width: 500px){
+        display: inline-block;
+    }
 `;
 
-//Logo Photo
+const AboutContainer = styled.div`
+    margin-left: 15%;
+    height: 300px;
+    @media(max-width: 500px){
+        margin-left: 5%;
+    }
+`
 
+//Logo Photo
 const ImageContainer = styled.div`
-    margin-left: 6%;
+    text-align: center;
 `
 
 const ContactImage = styled.img`
@@ -86,13 +96,42 @@ const ContactImage = styled.img`
         height: 200px;
     };
     @media(max-width: 600px){  
-        width: 100px;
-        height: 100px;
+        align: center;
+        width: 150px;
+        height: 150px;
     }; 
 `
 
-const AboutContainer = styled.div`
-    margin-left: 15%;
+//Contact Methods / Social Div
+const HeadContainer = styled.div`
+    
+`
+
+//Contact Methods
+const ContactMethodContainer = styled.div`
+    text-align: center;
+`
+
+const EmailContainer = styled.p`
+    padding-left: 25px;
+    margin: 10px;
+    font-size: 24px;
+    color: white;
+`
+
+//Social Items
+
+const SocialItems = styled.div`
+    margin: auto;
+    color: white;      
+    display: flex;
+    @media(max-width: 500px){
+        margin: 0;
+    }
+`
+
+const SocialLink = styled.div`
+    margin: auto;
 `
 
 //Bio
@@ -109,7 +148,10 @@ const BioContainer = styled.div`
         width: 500px
     };
     @media(max-width: 600px){  
-        width: 350px
+        margin-top: 25px;
+        margin-left: 4%;  
+        margin-right: 0;
+        width: 300px;
     };    
 `;
 
@@ -121,7 +163,7 @@ const BioHeader = styled.h1`
         font-size: 36px;
     };
     @media(max-width: 600px){  
-        font-size: 26px;
+        font-size: 32px;
     }; 
 `
 
@@ -136,29 +178,6 @@ const Bio = styled.h4`
     }; 
 `;
 
-//Contact Methods
-const ContactMethodContainer = styled.div`
-
-`
-
-const EmailContainer = styled.p`
-    padding-left: 25px;
-    font-size: 24px;
-    color: white;
-`
-
-const SocialDiv = styled.div`
-    margin-left: 20px;
-    color: white;
-`
-
-const SocialItems = styled.div`
-    display: flex;
-`
-
-const SocialLink = styled.div`
-
-`
 
 //SOCIAL ICONS
 const INSTAGRAM = styled(Instagram)`
