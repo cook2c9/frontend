@@ -79,12 +79,12 @@ const AboutContainer = styled.div`
     @media(max-width: 500px){
         margin-left: 5%;
     }
-`
+`;
 
 //Logo Photo
 const ImageContainer = styled.div`
     text-align: center;
-`
+`;
 
 const ContactImage = styled.img`
     width: 275px;
@@ -100,24 +100,24 @@ const ContactImage = styled.img`
         width: 150px;
         height: 150px;
     }; 
-`
+`;
 
 //Contact Methods / Social Div
 const HeadContainer = styled.div`
     
-`
+`;
 
 //Contact Methods
 const ContactMethodContainer = styled.div`
     text-align: center;
-`
+`;
 
 const EmailContainer = styled.p`
     padding-left: 25px;
     margin: 10px;
     font-size: 24px;
     color: white;
-`
+`;
 
 //Social Items
 
@@ -128,11 +128,11 @@ const SocialItems = styled.div`
     @media(max-width: 500px){
         margin: 0;
     }
-`
+`;
 
 const SocialLink = styled.div`
     margin: auto;
-`
+`;
 
 //Bio
 const BioContainer = styled.div`
@@ -165,7 +165,7 @@ const BioHeader = styled.h1`
     @media(max-width: 600px){  
         font-size: 32px;
     }; 
-`
+`;
 
 const Bio = styled.h4`
     color: white;
@@ -215,7 +215,5 @@ const EMAIL = styled(Email)`
         color: #8d8e8f;
     }
 `;
-
-
 
 export default Contact;
